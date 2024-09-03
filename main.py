@@ -24,8 +24,8 @@ def fetch_name_type_content(json_data):
 		entity_type = entity['type']
 		for mention in entity['mentions']:
 			result.append({
-			    'name': name,
-			    'type': entity_type
+				'name': name,
+				'type': entity_type
 			})
 	return result
 
@@ -39,23 +39,23 @@ def analyze():
 
 	# The request payload
 	payload = {
-	    "document": {
-	        "type": "PLAIN_TEXT",
-	        "content": text
-	    },
-	    "encodingType": "UTF8"
+		"document": {
+			"type": "PLAIN_TEXT",
+			"content": text
+		},
+		"encodingType": "UTF8"
 	}
 
 	# Make the API request
 	response = requests.post(url,
-	                         headers={'Content-Type': 'application/json'},
-	                         data=json.dumps(payload))
+							 headers={'Content-Type': 'application/json'},
+							 data=json.dumps(payload))
 
 	# Check the response status and process the result
 	if response.status_code == 200:
 		result = response.json()
 		filtered_result = fetch_name_type_content(result)
-		return jsonify({'input_text': text, 'output': filtered_result})
+		return render_template('result.html', input_text=text, output=filtered_result)
 	else:
 		return f"Error: {response.status_code}\n{response.text}"
 

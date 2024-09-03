@@ -4,20 +4,33 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>GCP NLP</title>
+	<title>Analysis Result</title>
 	<!-- Bootstrap CSS -->
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 	<div class="container mt-5">
-		<h1 class="mb-4">GCP NLP</h1>
-		<form action="/analyze" method="post">
-			<div class="form-group">
-				<label for="text">Enter text to analyze entities:</label>
-				<textarea id="text" name="text" class="form-control" rows="4"></textarea>
-			</div>
-			<button type="submit" class="btn btn-primary">Analyze</button>
-		</form>
+		<h1 class="mb-4">Analysis Result</h1>
+		<h2>Input Text</h2>
+		<p>{{ input_text }}</p>
+		<h2>Entities</h2>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for entity in output %}
+				<tr>
+					<td>{{ entity.name }}</td>
+					<td>{{ entity.type }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<a href="/" class="btn btn-primary">Analyze Another Text</a>
 	</div>
 	<!-- Bootstrap JS and dependencies -->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
